@@ -29,5 +29,6 @@ Gem::Specification.new do |spec|
   spec.summary               = 'Jekyll generator that makes a QR code for every url in the website.'
   spec.version               = JekyllQrGenerator::VERSION
 
+  spec.add_dependency 'jekyll'
   spec.add_dependency 'rqrcode'
 end

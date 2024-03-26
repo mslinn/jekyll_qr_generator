@@ -1,6 +1,7 @@
 /.bundle/
 /.yardoc
 /binstub/
+/exe/
 /Gemfile.lock
 /_yardoc/
 /coverage/
@@ -9,3 +10,6 @@
 /doc/
 /pkg/
 /tmp/
+/demo/_site/
+.jekyll-metadata
+.jekyll-cache

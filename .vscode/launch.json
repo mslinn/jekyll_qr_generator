@@ -4,14 +4,13 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-  <%- if @jekyll -%>
     {
       "args": [
         "serve",
         "--livereload_port", "35721",
         "--force_polling",
         "--host", "0.0.0.0",
-        "--port", "4001",
+        "--port", "4444",
         "--future",
         "--incremental",
         "--livereload",
@@ -22,10 +21,9 @@
       "debugPort": "0",
       "name": "Debug Demo",
       "request": "launch",
-      "script": "${workspaceRoot}/binstub/jekyll",
+      "script": "${workspaceRoot}/exe/jekyll",
       "type": "rdbg",
     },
-    <%- end -%>
     {
       "args": [],
       "debugPort": "0",
@@ -54,13 +52,13 @@
     },
     {
       "name": "RSpec - active spec file only",
-      "program": "binstub/rspec -I ${workspaceRoot} ${file}",
+      "program": "exe/rspec -I ${workspaceRoot} ${file}",
       "request": "launch",
       "type": "ruby_lsp",
     },
     {
       "name": "RSpec - all",
-      "program": "${workspaceRoot}/binstub/rspec -I ${workspaceRoot}",
+      "program": "${workspaceRoot}/exe/rspec -I ${workspaceRoot}",
       "request": "launch",
       "type": "ruby_lsp",
     }

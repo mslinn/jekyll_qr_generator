@@ -5,26 +5,46 @@ require 'rqrcode'
 # for example, adding links to author pages or adding posts to author pages.
 Jekyll::Hooks.register(:site, :post_read, priority: :normal) do |site|
   @log_site.info { 'Jekyll::Hooks.register(:site, :post_read) invoked.' }
+  GenerateQRCodes.new(site).generate
+end
 
-  unless Dir.exist? '_site'
-    puts 'Error: _site directory does not exist'
+class GenerateQRCodes
+  def initialize(site)
+    @site = site
+    @qr_path = "#{@site.config.destination}/assets/images/qrcodes"
+    @url_base = @site.config['domain']
+
+    unless Dir.exist? site.config.destination
+      puts "QR Generator error: directory '#{site.config.destination}' does not exist."
+      exit 1
+    end
+
+    return if @url_base
+
+    puts "QR Generator error: site.config does not contain a key called 'domain'."
     exit 1
   end
 
-  File.mkdirs '_site/assets/images/qrcodes'
+  def generate
+    File.mkdir_p @qr_path
 
-  url_base = site.config['website']
-  site.docs.each do |doc|
-    write_qrcode url_base, doc
+    @site.docs.each do |doc|
+      write_qrcode @url_base, doc
+    end
+    @site.pages.each do |page|
+      write_qrcode @url_base, page
+    end
   end
-end
 
-def write_qrcode(url_base, doc)
-  url = "#{url_base}/#{doc.url}"
-  filename = doc.page
-  qrcode = RQRCode::QRCode.new(url)
-  qrcode.as_png(
-    color: 0x114163FF,
-    file:  "_site/assets/images/qrcodes/#{filename}.png"
-  )
+  def write_qrcode(doc)
+    filename = doc.page
+
+    url = "#{@url_base}/#{doc.url}"
+    qrcode = RQRCode::QRCode.new(url)
+
+    qrcode.as_png(
+      color: 0x114163FF,
+      file:  "@qr_path/#{filename}.png"
+    )
+  end
 end

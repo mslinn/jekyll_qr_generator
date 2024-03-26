@@ -1,0 +1,56 @@
+.collection_name_div {
+  border: solid #eee 1px;
+  margin-bottom: 1em;
+  padding: 0.5em;
+}
+
+.collection_head {
+  color: white;
+  background-color: #666;
+  display: flow-root;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-stretch: semi-condensed;
+  margin-bottom: 0.3em;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 2px;
+}
+
+.collection_head a {
+  color: #c0e6fb;
+}
+
+.collection_head a:hover {
+  color: #FFE59F;
+}
+
+.collection_head ol li,
+ol li .collection_head {
+  padding-left: 1.75em;
+}
+
+li div.collection_head {
+  padding-left: 2em;
+}
+
+.collection_summary_error {
+  color: red;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-size: 10pt;
+  font-stretch: semi-condensed;
+}
+
+.most_popular_div {
+  background-color: white;
+  color: #666;
+  display: flow-root;
+  font-family: "Helvetica Neue", Helvetica, Arial, serif;
+  font-size: larger;
+  margin-bottom: 0;
+  margin-top: 0.3em;
+  padding-bottom: 2px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 2px;
+}
