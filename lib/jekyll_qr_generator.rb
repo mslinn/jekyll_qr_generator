@@ -4,5 +4,3 @@ require_relative 'jekyll_qr_generator/version'
 Dir[File.join(__dir__, '*.rb')].each do |file|
   require file unless file.end_with?('/jekyll_qr_generator.rb')
 end
-
-# Write the code for your gem here

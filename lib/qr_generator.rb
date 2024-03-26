@@ -16,30 +16,30 @@ class Generator < Jekyll::Generator
   end
 
   def write_qrcode(apage)
-    ext = if apage.respond_to? :ext
-            apage.ext
-          elsif apage.respond_to? :extname
-            apage.extname
-          end
-    filepath_no_ext = apage.url.delete_suffix ext
+    ext = apage.extname
+    filepath_no_ext = URI(apage.url).path.delete_suffix ext
+    return if filepath_no_ext.end_with? '/'
+
     filepath = "#{filepath_no_ext}.svg"
+    static_file = Jekyll::StaticFile.new(@site, @site.source, @qr_path, filepath)
+    return if @site.static_files.include? static_file
+
     filename_fq = "#{@site.source}/#{@qr_path}#{filepath}"
 
     url = "#{@url_base}#{apage.url}"
-    # puts "Writing QR code for #{url} to #{filename_fq}"
+    puts "Writing QR code to #{filename_fq}"
     qrcode = RQRCode::QRCode.new(url)
 
     rendered_svg = qrcode.as_svg(
-      color:    :white,
+      color:    :yellow,
       size:     160,
       use_path: true,
       viewbox:  true
     )
     FileUtils.mkdir_p File.dirname filename_fq
-    bytes_written = File.write(filename_fq, rendered_svg.to_s)
-    puts "#{bytes_written} bytes written to #{filename_fq}"
+    _bytes_written = File.write(filename_fq, rendered_svg.to_s)
+    # puts "#{_bytes_written} bytes written to #{filename_fq}"
 
-    static_file = Jekyll::StaticFile.new(@site, @site.source, @qr_path, filepath)
     @site.static_files << static_file
   end
 end

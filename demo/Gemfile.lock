@@ -20,7 +20,7 @@ PATH
   specs:
     jekyll_qr_generator (0.1.0)
       jekyll
-      jekyll_all_collections
+      jekyll_all_collections (>= 0.4.0)
       jekyll_plugin_logger
       rqrcode
 
@@ -102,7 +102,7 @@ GEM
       nuggets
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    jekyll_all_collections (0.3.4)
+    jekyll_all_collections (0.4.0)
       jekyll (>= 3.5.0)
       jekyll_draft (>= 1.1.1)
       jekyll_plugin_support (>= 0.7.0)

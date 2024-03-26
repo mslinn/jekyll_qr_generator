@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.version               = JekyllQrGenerator::VERSION
 
   spec.add_dependency 'jekyll'
-  spec.add_dependency 'jekyll_all_collections'
+  spec.add_dependency 'jekyll_all_collections', '>= 0.4.0'
   spec.add_dependency 'jekyll_plugin_logger'
   spec.add_dependency 'rqrcode'
 end

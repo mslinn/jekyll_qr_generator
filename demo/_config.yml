@@ -12,6 +12,7 @@ domain: bogus.jekylldemo.com
 email: bogus@jekylldemo.com
 exclude:  # Wildcards are not supported yet https://github.com/jekyll/jekyll-watch/pull/93
   - .git
+  - /assets/images/qrcodes/
   - .github
   - .gitignore
   - .jekyll-cache
