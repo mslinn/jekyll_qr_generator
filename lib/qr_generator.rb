@@ -2,34 +2,14 @@ require 'fileutils'
 require 'jekyll_plugin_logger'
 require 'rqrcode'
 
-# Called after all source files have been read and loaded from disk.
-# This is a good hook for enriching posts;
-# for example, adding links to author pages or adding posts to author pages.
-Jekyll::Hooks.register(:site, :post_read, priority: :normal) do |site|
-  @log_site ||= PluginMetaLogger.instance.new_logger(:SiteHooks, PluginMetaLogger.instance.config)
-  @log_site.info { 'Jekyll::Hooks.register(:site, :post_read) invoked.' }
-  GenerateQRCodes.new(site).generate
-end
-
-class GenerateQRCodes
-  def initialize(site)
+class Generator < Jekyll::Generator
+  def generate(site)
+    @log_site ||= PluginMetaLogger.instance.new_logger(:SiteHooks, PluginMetaLogger.instance.config)
+    @log_site.info { 'Jekyll::Hooks.register(:documents, :pre_render) invoked.' }
     @site = site
-    @qr_path = "#{@site.config['destination']}/assets/images/qrcodes"
+    @qr_path = 'assets/images/qrcodes'
     @url_base = @site.config['domain']
-
-    unless Dir.exist? site.config['destination']
-      puts "QR Generator error: directory '#{site.config['destination']}' does not exist."
-      exit 1
-    end
-
-    return if @url_base
-
-    puts "QR Generator error: site.config does not contain a key called 'domain'."
-    exit 1
-  end
-
-  def generate
-    FileUtils.mkdir_p @qr_path
+    FileUtils.mkdir_p @qr_path, verbose: true
 
     @site.documents.each do |doc|
       write_qrcode doc
@@ -41,15 +21,22 @@ class GenerateQRCodes
 
   def write_qrcode(doc)
     filename = File.basename doc.path, doc.extname
-    filename_fq = "#{@qr_path}/#{filename}.png"
+    filename_fq = "#{@qr_path}/#{filename}.svg"
 
     url = "#{@url_base}#{doc.url}"
     puts "Writing QR code for #{url} to #{filename_fq}"
     qrcode = RQRCode::QRCode.new(url)
 
-    qrcode.as_png(
-      color: 0x114163FF,
-      file:  filename_fq
+    rendered_svg = qrcode.as_svg(
+      color:    :white,
+      size:     160,
+      use_path: true,
+      viewbox:  true
     )
+    bytes_written = File.write(filename_fq, rendered_svg.to_s)
+    puts "#{bytes_written} bytes written"
+
+    static_file = Jekyll::StaticFile.new(@site, @site.source, @qr_path, "#{filename}.svg")
+    @site.static_files << static_file
   end
 end
