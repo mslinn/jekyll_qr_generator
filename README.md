@@ -1,20 +1,14 @@
 # `Jekyll_qr_generator` [![Gem Version](https://badge.fury.io/rb/jekyll_qr_generator.svg)](https://badge.fury.io/rb/jekyll_qr_generator)
 
-Description of JekyllQrGenerator
+Jekyll generator that makes a QR code for every url in the website.
 
 
 ## Installation
 
-Either add this line to your application&rsquo;s `Gemfile`:
+Add this line to your Jekyll website&rsquo;s `Gemfile`:
 
 ```ruby
 gem 'jekyll_qr_generator'
-```
-
-... or add the following to your application&rsquo;s `.gemspec`:
-
-```ruby
-spec.add_dependency 'jekyll_qr_generator'
 ```
 
 And then execute:
@@ -26,7 +20,12 @@ $ bundle
 
 ## Usage
 
-Describe how to use this gem
+Run Jekyll as usual.
+A PNG will be created for every page on the Jekyll website,
+in the `/assets/images/qrcodes/` directory.
+
+The PNG will have the same name as the webpage that it is made for,
+with a `.png` file type instead of an `.html` file type.
 
 
 ## Development
