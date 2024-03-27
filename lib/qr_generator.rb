@@ -1,16 +1,15 @@
 require 'fileutils'
 require 'jekyll_all_collections'
-require 'jekyll_plugin_logger'
+require 'jekyll_plugin_support'
 require 'rqrcode'
 
-class QRCodeGenerator < Jekyll::Generator
+class QRCodeGenerator < JekyllSupport::JekyllGenerator
   QR_PATH = 'assets/images/qrcodes'.freeze
 
-  def generate(site)
-    @logger ||= PluginMetaLogger.instance.new_logger(:QRCodeGenerator, PluginMetaLogger.instance.config)
-    @logger.info { 'Jekyll::Hooks.register(:documents, :pre_render) invoked.' }
-    @site = site
-    @domain = site.config['domain']
+  def generate_impl
+    @qr_config = @config['qrcode']
+
+    @domain = @config['domain']
 
     unless @domain
       @logger.error do
