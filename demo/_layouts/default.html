@@ -26,7 +26,12 @@ layout: compress
 </head>
 <body id="body">
   <header>
-    <img src="{{page['qrcode']}}" style="float: left; padding: 0.4rem; width: auto; height: 100%;">
+    <img
+      alt="Share this page by using this QR code"
+      src="{{page['qrcode']}}"
+      style="float: left; padding: 0.4rem; width: auto; height: 100%;"
+      title="Share this page by using this QR code"
+    >
     <div class="inner">
       <a href="/index.html">
         <div class="h1">{{ site.title }}</div>
