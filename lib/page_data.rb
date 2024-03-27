@@ -5,11 +5,13 @@ module Jekyll
   class QRPath
     def self.hook_proc
       proc { |page|
-        site = page.site
-        qr_dir = File.dirname "/assets/images/qrcodes#{Pathname.new(page.url).to_path}"
+        qr_dir = "/assets/images/qrcodes#{File.dirname(Pathname.new(page.url).to_path)}"
         basename = page.respond_to?(:basename_without_ext) ? page.basename_without_ext : page.basename
-        qr_path = "https://#{site.config['domain']}#{qr_dir}/#{basename}.svg"
-        puts "QRPath: #{qr_path}"
+        qr_path = "#{qr_dir}/#{basename}.svg"
+        # puts "\npage.url: #{page.url}"
+        # puts "qr_dir: #{qr_dir}"
+        # puts "basename: #{basename}"
+        # puts "qr_path: #{qr_path}"
         page.data['qrcode'] = qr_path
       }
     end

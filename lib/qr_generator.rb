@@ -8,6 +8,7 @@ class Generator < Jekyll::Generator
     @log_site ||= PluginMetaLogger.instance.new_logger(:SiteHooks, PluginMetaLogger.instance.config)
     @log_site.info { 'Jekyll::Hooks.register(:documents, :pre_render) invoked.' }
     @site = site
+    @domain = site.config['domain']
     @qr_path = 'assets/images/qrcodes'
     @url_base = @site.config['domain']
 
