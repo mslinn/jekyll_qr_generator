@@ -8,8 +8,8 @@ compress_html:
     envs: [development]
   profile: false
   startings: [html, head, body]
-domain: bogus.jekylldemo.com
-email: bogus@jekylldemo.com
+domain: www.mslinn.com
+email: bogus@example.com
 exclude:  # Wildcards are not supported yet https://github.com/jekyll/jekyll-watch/pull/93
   - .git
   - /assets/images/qrcodes/

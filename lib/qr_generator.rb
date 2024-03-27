@@ -3,11 +3,11 @@ require 'jekyll_all_collections'
 require 'jekyll_plugin_logger'
 require 'rqrcode'
 
-class Generator < Jekyll::Generator
+class QRCodeGenerator < Jekyll::Generator
   QR_PATH = 'assets/images/qrcodes'.freeze
 
   def generate(site)
-    @logger ||= PluginMetaLogger.instance.new_logger(:SiteHooks, PluginMetaLogger.instance.config)
+    @logger ||= PluginMetaLogger.instance.new_logger(:QRCodeGenerator, PluginMetaLogger.instance.config)
     @logger.info { 'Jekyll::Hooks.register(:documents, :pre_render) invoked.' }
     @site = site
     @domain = site.config['domain']
@@ -15,11 +15,13 @@ class Generator < Jekyll::Generator
     unless @domain
       @logger.error do
         <<~END_ERROR
-          Error: _config.yml must have an entry for domain. For example:
-            domain: www.my_domain.com
+          Error: _config.yml must have an entry for 'domain'. For example:
+            domain: www.mslinn.com
+
+          No QR codes will be generated until the problem is corrected.
         END_ERROR
       end
-      exit 2
+      return
     end
 
     FileUtils.mkdir_p QR_PATH
@@ -36,7 +38,7 @@ class Generator < Jekyll::Generator
     return if @site.static_files.include? static_file
 
     url = "https://#{@domain}#{apage.url}"
-    @logger.info { "Creating QR Code for #{url}" }
+    @logger.debug { "Creating QR Code for #{url}" }
     qrcode = RQRCode::QRCode.new url
 
     rendered_svg = qrcode.as_svg(
@@ -47,10 +49,10 @@ class Generator < Jekyll::Generator
     )
 
     filename_fq = "#{@site.source}/#{QR_PATH}#{filepath}"
-    @logger.info { "Writing QR code to #{filename_fq}" }
+    @logger.debug { "Writing QR code to #{filename_fq}" }
     FileUtils.mkdir_p File.dirname filename_fq
     bytes_written = File.write(filename_fq, rendered_svg.to_s)
-    @logger.info { "#{bytes_written} bytes written to #{filename_fq}" }
+    @logger.debug { "#{bytes_written} bytes written to #{filename_fq}" }
 
     @site.static_files << static_file
   end
