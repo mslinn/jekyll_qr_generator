@@ -1,14 +1,16 @@
 # `Jekyll_qr_generator` [![Gem Version](https://badge.fury.io/rb/jekyll_qr_generator.svg)](https://badge.fury.io/rb/jekyll_qr_generator)
 
-Jekyll generator that makes a QR code for every url in the website.
+`Jekyll_qr_generator` is a Jekyll generator plugin that can display a QR code for every web page in a Jekyll website.
 
 
 ## Installation
 
-Add this line to your Jekyll website&rsquo;s `Gemfile`:
+Add the following to your Jekyll website&rsquo;s `Gemfile`:
 
 ```ruby
-gem 'jekyll_qr_generator'
+group :jekyll_plugins do
+  gem 'jekyll_qr_generator'
+end
 ```
 
 And then execute:
@@ -23,14 +25,21 @@ $ bundle
 This Jekyll plugin creates an SVG image for every web page on the Jekyll website,
 in the `/assets/images/qrcodes/` directory.
 
-The SVG will have the same name as the web page that it is made for,
-with an `.svg` file type instead of an `.html` file type, and the QR code path starts with `/assets/images/qrcodes`.
+Within the `/assets/images/qrcodes` directory, the generated SVG files will have the same file path as the web page that
+they were made for, with an `.svg` file type instead of an `.html` file type.
 
-For example, the Jekyll page at `/blog/2024/03/25/2022-05-01-test2.html` will use the image at `/assets/images/qrcodes/blog/2024/03/25/2022-05-01-test2.svg`.
+For example, the Jekyll page at `/blog/2024/03/25/2022-05-01-test2.html` will use the image at
+`/assets/images/qrcodes/blog/2024/03/25/2022-05-01-test2.svg`.
 
 The plugin adds the path to the relevant SVG image in a data attribute called `qrcode` to each Jekyll page and document.
+A Jekyll page or template can retrieve the path from the data attribute by using this incantation:
+`{{page['qrcode']}}`.
 
-Place the QR code on each page by adding the following to a template:
+
+### Jekyll Template
+
+Place the QR code on each page by adding the following to a template.
+The only attribute which must be used exactly as shown is `src`.
 
 ```html
 <img
@@ -41,7 +50,12 @@ Place the QR code on each page by adding the following to a template:
 >
 ```
 
-The `demo` Jekyll site in this git repository defines the `qrcode` CSS class in a file called `demo/assets/css/qrcode.css`:
+
+### CSS
+
+The [`demo`](https://github.com/mslinn/jekyll_qr_generator/blob/master/demo/)
+Jekyll site in this git repository defines the `qrcode` CSS class used the above HTML
+in a file called [`demo/assets/css/qrcode.css`](https://github.com/mslinn/jekyll_qr_generator/blob/master/demo/assets/css/qrcode.css):
 
 ```css
 .qrcode {
@@ -50,6 +64,38 @@ The `demo` Jekyll site in this git repository defines the `qrcode` CSS class in 
   width: auto;
   height: 100%;
 }
+```
+
+
+### Configuration
+
+By default, the QR code will have a black foreground over a transparent background.
+You can change these defaults by adding an entry to
+[`_config.yml`](https://github.com/mslinn/jekyll_qr_generator/blob/master/demo/_config.yml).
+
+Adding the `qrcode` configuration entry controls `fg_color` and `bg_color`.
+Following are some examples.
+
+Yellow on a dark green background:
+
+```yaml
+qrcode:
+  fg_color: yellow
+  bg_color: darkgreen
+```
+
+Grey on a transparent background:
+
+```yaml
+qrcode:
+  fg_color: '#666'
+```
+
+Black on a white background:
+
+```yaml
+qrcode:
+  bg_color: white
 ```
 
 
