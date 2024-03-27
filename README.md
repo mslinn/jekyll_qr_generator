@@ -20,12 +20,37 @@ $ bundle
 
 ## Usage
 
-Run Jekyll as usual.
-A PNG will be created for every page on the Jekyll website,
+This Jekyll plugin creates an SVG image for every web page on the Jekyll website,
 in the `/assets/images/qrcodes/` directory.
 
-The PNG will have the same name as the webpage that it is made for,
-with a `.png` file type instead of an `.html` file type.
+The SVG will have the same name as the web page that it is made for,
+with an `.svg` file type instead of an `.html` file type, and the QR code path starts with `/assets/images/qrcodes`.
+
+For example, the Jekyll page at `/blog/2024/03/25/2022-05-01-test2.html` will use the image at `/assets/images/qrcodes/blog/2024/03/25/2022-05-01-test2.svg`.
+
+The plugin adds the path to the relevant SVG image in a data attribute called `qrcode` to each Jekyll page and document.
+
+Place the QR code on each page by adding the following to a template:
+
+```html
+<img
+  alt="Share this page by using this QR code"
+  class="qrcode"
+  src="{{page['qrcode']}}"
+  title="Share this page by using this QR code"
+>
+```
+
+The `demo` Jekyll site in this git repository defines the `qrcode` CSS class in a file called `demo/assets/css/qrcode.css`:
+
+```css
+.qrcode {
+  float: left;
+  padding: 0.4rem;
+  width: auto;
+  height: 100%;
+}
+```
 
 
 ## Development
