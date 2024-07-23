@@ -12,7 +12,6 @@ domain: www.mslinn.com
 email: bogus@example.com
 exclude:  # Wildcards are not supported yet https://github.com/jekyll/jekyll-watch/pull/93
   - .git
-  - /assets/images/qrcodes/
   - .github
   - .gitignore
   - .jekyll-cache
@@ -28,20 +27,22 @@ liquid:
   error_mode: strict
   # strict_filters: true
   # strict_variables: true
+livereload_ignore: [ 'assets/images/qrcodes/*', '/assets/images/qrcodes/*' ]
 plugin_loggers:
   PluginMetaLogger: info
   CleanHook: warn
   DocumentHooks: warn
   MyBlock: warn
-  PageHooks: warn
-  PostHooks: warn
+  JekyllQRCodes::QRCodeEnrichmentData: info
+  QRCodeGenerator: info
+  QRPath: debug
   SiteHooks: warn
 permalink: "/blog/:year/:month/:day/:title:output_ext"
 plugins: # Use file name of the plugin entry point, not the gem name
   - jekyll
   - jekyll_plugin_logger
 qrcode:
-  fg_color: '#666'
+  fg_color: ':yellow'
 sass:
   style: compressed
 title: QR Code Generation Demonstration

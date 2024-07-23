@@ -21,7 +21,7 @@ PATH
     jekyll_qr_generator (0.1.0)
       jekyll
       jekyll_all_collections (>= 0.4.0)
-      jekyll_plugin_logger
+      jekyll_plugin_support
       rqrcode
 
 GEM

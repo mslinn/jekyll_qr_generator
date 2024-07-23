@@ -74,14 +74,16 @@ You can change these defaults by adding an entry to
 [`_config.yml`](https://github.com/mslinn/jekyll_qr_generator/blob/master/demo/_config.yml).
 
 Adding the `qrcode` configuration entry controls `fg_color` and `bg_color`.
+If `bg_color` is not specified, the background will be transparent.
+
 Following are some examples.
 
 Yellow on a dark green background:
 
 ```yaml
 qrcode:
-  fg_color: yellow
   bg_color: darkgreen
+  fg_color: yellow
 ```
 
 Grey on a transparent background:

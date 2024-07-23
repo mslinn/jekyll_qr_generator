@@ -7,7 +7,10 @@ class QRCodeGenerator < JekyllSupport::JekyllGenerator
   QR_PATH = 'assets/images/qrcodes'.freeze
 
   def generate_impl
+    @logger.info { 'Loading QRCodeGenerator' }
     @qr_config = @config['qrcode']
+    @fg_color  = @qr_config['fg_color'] || :black
+    @bg_color  = @qr_config['bg_color']
 
     @domain = @config['domain']
 
@@ -41,7 +44,8 @@ class QRCodeGenerator < JekyllSupport::JekyllGenerator
     qrcode = RQRCode::QRCode.new url
 
     rendered_svg = qrcode.as_svg(
-      color:    :yellow,
+      color:    @fg_color,
+      fill:     @bg_color,
       size:     160,
       use_path: true,
       viewbox:  true

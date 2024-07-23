@@ -14,6 +14,7 @@
         "--future",
         "--incremental",
         "--livereload",
+        "--livereload-ignore", "/assets/images/qrcodes/**",
         "--drafts",
         "--unpublished"
       ],
