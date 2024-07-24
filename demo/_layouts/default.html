@@ -11,7 +11,7 @@ layout: compress
   {% capture page.title %}{{ page.title | default: page.subtitle }}{% endcapture %}
   {% assign nowMillis = site.time | date: '%s' %}
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: nowMillis }}" type="text/css">
-  <link rel="stylesheet" href="{{ '/assets/css/qrcode.css?v=' | append: nowMillis }}" type="text/css">
+  <link rel="stylesheet" href="{{ '/assets/css/jekyll_qr_generator.css?v=' | append: nowMillis }}" type="text/css">
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
   <title>{{ page.title-override | default: page.title | default: page.subtitle }}</title>
   {% if page.keywords %}<meta name="keywords" content="{{page.keywords}}">{% endif %}
