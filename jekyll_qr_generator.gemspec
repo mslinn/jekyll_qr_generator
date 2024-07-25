@@ -31,6 +31,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'jekyll'
   spec.add_dependency 'jekyll_all_collections', '>= 0.3.6'
-  spec.add_dependency 'jekyll_plugin_support'
+  spec.add_dependency 'jekyll_plugin_support', '>= 1.0.0'
   spec.add_dependency 'rqrcode'
 end
