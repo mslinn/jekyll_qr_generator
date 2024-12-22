@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
     'source_code_uri'   => host,
   }
   spec.name                 = 'jekyll_qr_generator'
+  spec.platform             = Gem::Platform::RUBY
   spec.post_install_message = <<~END_MESSAGE
 
     Thanks for installing #{spec.name}!
