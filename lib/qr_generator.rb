@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'jekyll_all_collections'
 require 'jekyll_plugin_support'
 require 'rqrcode'
 
@@ -27,8 +26,7 @@ class QRCodeGenerator < JekyllSupport::JekyllGenerator
     end
 
     FileUtils.mkdir_p QR_PATH
-    items = (@site.all_collections + @site.pages)
-    items.each { |x| write_qrcode x }
+    @site.everything.each { |x| write_qrcode x }
   end
 
   def write_qrcode(apage)

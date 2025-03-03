@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'jekyll', '>= 4.3.3'
-gem 'json', '=2.6.3' # Remove this entry when Jekyll 4.3.3+ is released
+# gem 'json', '=2.6.3' # Remove this entry when Jekyll 4.3.3+ is released
 
 group :jekyll_plugins do
   # gem 'html-proofer'
