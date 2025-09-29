@@ -1,7 +1,8 @@
-require:
+plugins:
   - rubocop-md
   - rubocop-performance
   - rubocop-rake
+  - rubocop-rspec
 
 AllCops:
   Exclude:
@@ -47,6 +48,10 @@ Metrics/PerceivedComplexity:
 Naming/FileName:
   Exclude:
     - Rakefile
+    - Gemfile
+    - README.md
+    - LICENSE.txt
+    - CHANGELOG.md
 
 Style/Documentation:
   Enabled: false

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "http/parser"
+require 'http/parser'
 
 module Jekyll
   module Commands
@@ -32,27 +32,26 @@ module Jekyll
           em_opts = {}
           super(em_opts)
 
-          reload_file = File.join(Serve.singleton_class::LIVERELOAD_DIR, "livereload.js")
+          reload_file = File.join(Serve.singleton_class::LIVERELOAD_DIR, 'livereload.js')
 
           @reload_body = File.read(reload_file)
           @reload_size = @reload_body.bytesize
         end
 
-        # rubocop:disable Metrics/MethodLength
         def dispatch(data)
           parser = Http::Parser.new
           parser << data
 
           # WebSockets requests will have a Connection: Upgrade header
-          if parser.http_method != "GET" || parser.upgrade?
+          if parser.http_method != 'GET' || parser.upgrade?
             super
-          elsif parser.request_url.start_with?("/livereload.js")
+          elsif parser.request_url.start_with?('/livereload.js')
             headers = [
-              "HTTP/1.1 200 OK",
-              "Content-Type: application/javascript",
+              'HTTP/1.1 200 OK',
+              'Content-Type: application/javascript',
               "Content-Length: #{reload_size}",
-              "",
-              "",
+              '',
+              ''
             ].join("\r\n")
             send_data(headers)
 
@@ -63,18 +62,17 @@ module Jekyll
           else
             body = "This port only serves livereload.js over HTTP.\n"
             headers = [
-              "HTTP/1.1 400 Bad Request",
-              "Content-Type: text/plain",
+              'HTTP/1.1 400 Bad Request',
+              'Content-Type: text/plain',
               "Content-Length: #{body.bytesize}",
-              "",
-              "",
+              '',
+              ''
             ].join("\r\n")
             send_data(headers)
             send_data(body)
             close_connection_after_writing
           end
         end
-        # rubocop:enable Metrics/MethodLength
       end
     end
   end
